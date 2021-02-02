@@ -1,0 +1,12 @@
+{
+  "name": "grand-master-bot",
+  "version": "0.0.0",
+  "description": "GrandMasterBot",
+  "main": "app.js",
+  "author": {
+    "name": ""
+  },
+  "dependencies": {
+    "discord.js": "^12.5.1"
+  }
+}
