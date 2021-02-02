@@ -23,12 +23,17 @@ module.exports = {
                 timed = true;
                 if(isNan(args[i+1])) return message.reply("The lenght for time must be a whole number!") 
                 time = args[i+1];
+                i++;
             } else if(args[i] == '-s'){
                 silent = false;
             } else if(args[i] == '-r'){
-                if(args[i+1]){
-                    reason += args[i+1];
-                } else return message.reply('Must input a reason for -r');
+                if(args[i+1]){ // only if we have a valid arg
+                    while(args[i] && args[i] != '-s' || '-t'){ //We keep doing this loop until we hit the end of the loop or 
+                        reason += args[i];
+                        i++;
+                    }
+                    continue;
+                } else if(args[i+1] == '-s' || '-t' || !args[i+1]) return message.reply('Must input a reason for -r');
             }
         }
 

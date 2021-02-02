@@ -4,5 +4,6 @@
   "Roles":{
     "Mute": "",
     "Main": ""
-  }
+  },
+  "currentTickets":0
 }
