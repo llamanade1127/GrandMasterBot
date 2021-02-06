@@ -7,6 +7,10 @@
     "name": ""
   },
   "dependencies": {
-    "discord.js": "^12.5.1"
+    "discord-giveaways": "^4.4.3",
+    "discord.js": "^12.5.1",
+    "discord.js-musicbot-v2": "^13.9.3",
+    "ffmpeg": "0.0.4",
+    "wokcommands": "^1.2.1"
   }
 }

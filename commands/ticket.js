@@ -36,7 +36,7 @@ module.exports = {
 
         var ticketChannel = server.createChannel(name, "text");
 
-        var sendEmbed = new Discord.MessageEmbed().setTitle(`New ticket created by ${message.author.tag}.`).setDescription("Reason: ", reason).setFooter("Please react to close the ticket");
+        var sendEmbed = new Discord.MessageEmbed().setTitle(`New ticket created by ${message.author.tag}.`).setDescription("Reason: ", reason).setFooter("Please react to close the ticket").setColor(FF0000);;
 
         var message = ticketChannel.send({embed: sendEmbed}).then((message) => {
             message.react(check);

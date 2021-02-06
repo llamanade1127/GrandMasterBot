@@ -2,41 +2,19 @@
 //TODO: Need to add prefix and main and mute roles to config
 
 module.exports = {
-    name: "kick",
-    description: "kicks someone",
+    name: "mute",
+    description: "mutes someone",
     args:'1: -t TIME for time, 2: -s for silent 3: -r REASON',
+    minArgs: 1,
     example: `!kick -t 20 -r Was toxic`,
-    async execute(message,args){
-        if(args[0]) return message.reply("Must have a person to ban!");
+    async execute({message,args,text}){
         
         const {member, mentions} = message;
 
         const tag = `<@${member.id}>`;
-        var timed = false;
-        var time = 0;
-        var silent = true;
-        var reasonB = false;
-        var reason = "";
-        
-        for(var i = 0; i < args.length; i++){
-            if(args[i] == '-t'){
-                timed = true;
-                if(isNan(args[i+1])) return message.reply("The lenght for time must be a whole number!") 
-                time = args[i+1];
-                i++;
-            } else if(args[i] == '-s'){
-                silent = false;
-            } else if(args[i] == '-r'){
-                if(args[i+1]){ // only if we have a valid arg
-                    while(args[i] && args[i] != '-s' || '-t'){ //We keep doing this loop until we hit the end of the loop or 
-                        reason += args[i];
-                        i++;
-                    }
-                    continue;
-                } else if(args[i+1] == '-s' || '-t' || !args[i+1]) return message.reply('Must input a reason for -r');
-            }
-        }
 
+        var reason = text.slice(text.indexOf(">") + 1);
+        
         let mainRole = message.guild.roles.cache.find(role => role.name === "member");
         let muteRole = message.guild.roles.cahce.find(role => role.name === 'mute');
 
@@ -47,22 +25,7 @@ module.exports = {
                 //gets the main roles
                 targetMember.roles.remove(mainRole.id);
                 targetMember.roles.add(muteRole.id);
-                if(!silent){
-                    if(reasonB){
-                        if(timed){
-                            message.channel.send(`<@${targetMember.id}> has been muted for ${time} seconds because ${reason}!`);
-                        } else{
-                            message.channel.send(`<@${targetMember.id}> has been muted because ${reason}!`);
-                        }   
-                    }
-                    message.channel.send(`<@${targetMember.id}> has been muted!`);
-                }
-                if(timed){
-                    setTimeout(function() {
-                        targetMember.roles.remove(muteRole.id);
-                        targetMember.roles.add(mainRole.id);
-                    }, ms(time));
-                }
+                message.channel.send(`<@${targetMember.id}> has been muted because ${reason}!`);
             } else message.reply('You must put a valid member to kick!');
         } else return message.reply('You do not have the permission to execute this command');
     }

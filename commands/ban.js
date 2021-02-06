@@ -1,28 +1,31 @@
-
+const Discord = require('discord.js');
 
 module.exports = {
     name: "ban",
     description: "bans someone",
-    async execute(message,args){
-        if(args[0]) return message.reply("Must have a person to ban!");
+    minArgs: 2,
+    maxArgs: 2,
+    async execute({message,args, text}){
+        console.log(args[0]);
+        if(typeof args[0] == "undefined") return message.reply("Must have a person to ban!");
         
         const {member, mentions} = message;
 
-        const tag = `<@${member.id}>`;
+        if(typeof mentions == 'undefined') return message.reply("must have a person mentioned");
 
+        var BanEmbed = new Discord.MessageEmbed();
+        const tag = `<@${member.id}>`;
+        var reason = text.substring(text.indexOf('>') + 1);
         if(member.hasPermission('ADMINISTRATOR') || member.hasPermission('BAN_MEMBERS')){
-            const target = mentions.user.first();
+            const target = mentions.members.first();
             if(target){
                 const targetMember = message.guild.members.cache.get(target.id);
                 targetMember.ban();
-                if(!args[1] && !args[1] == '-s'){ //Only send if there is no valid reason
-                    if(args[2]){
-                        message.channel.send(`<@${targetMember.id}> has been banned by ${tag} for ${args[2]}!`); //for reason
-                    } else{
-                        message.channel.send(`<@${targetMember.id}> has been banned by ${tag}!`); //send without reason
-                    }
-                } 
+                BanEmbed.setTitle(`User has been banned!`).setDescription(`User ${targetMember} has been banned for: __${reason}__`).setColor(15158332);
+                message.channel.send({embed: BanEmbed}); //for reason
             } else message.reply('You must put a valid member to ban!');
         } else return message.reply('You do not have the permission to execute this command');
-    }
+    },
+    permissions: ["BAN_MEMBERS"],
+
 }
