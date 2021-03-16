@@ -10,7 +10,9 @@
     "discord-giveaways": "^4.4.3",
     "discord.js": "^12.5.1",
     "discord.js-musicbot-v2": "^13.9.3",
+    "djs-ticketsystem": "^2.1.0",
     "ffmpeg": "0.0.4",
+    "rockstar-games-status": "^1.0.0",
     "wokcommands": "^1.2.1"
   }
 }

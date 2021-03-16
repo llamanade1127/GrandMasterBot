@@ -1,6 +1,8 @@
 'use strict';
 const Discord = require("discord.js");
 const WOKcommands = require('wokcommands');
+const { GiveawaysManager } = require('discord-giveaways');
+const ticketSystem = require('djs-ticketsystem');
 const { token , ytAPIKey, channelId} = require("./config.json");
 const message = require("./events/guild/message");
 
@@ -15,23 +17,23 @@ client.events = new Discord.Collection();
 
 client.music = require('discord.js-musicbot-v2');
 
-client.music.start(client, {
-    youtubeKey: ytAPIKey
-});
+//client.music.start(client, {
+  //  youtubeKey: ytAPIKey
+//});
 
 //This is having errors. Maybe make function?
 const updateMembers = guild => {
-  //const channel = guild.channels.cache.get();
-  //channel.setName(`Members: ${guild.memberCount.toLocaleString()}`);
+  const channel = guild.channels.cache.get(channelId);
+  channel.setName(`Members: ${guild.memberCount.toLocaleString()}`);
 }
 
 client.on('guildMemberAdd', (member) => updateMembers(member.guild));
 client.on(`guildMemberRemove`, (member) => updateMembers(member.guild));
-client.on(`ready`, () => updateMembers('704075878832930887')); 
+//client.on(`ready`, () => updateMembers('704075878832930887')); 
 
 
 //Giveaway manager--
-const { GiveawaysManager } = require('discord-giveaways');
+
 // Starts updating currents giveaways
 const manager = new GiveawaysManager(client, {
     storage: './giveaways.json',
@@ -46,6 +48,7 @@ const manager = new GiveawaysManager(client, {
 });
 // We now have a giveawaysManager property to access the manager everywhere!
 client.giveawaysManager = manager;
+
 
 
 //Nzc5NTA5NjQ2MTc1NjMzNDMw.X7hk7g.vjH0Vs5qPonyt1cnNdE76cP8O1U

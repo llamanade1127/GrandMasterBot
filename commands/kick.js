@@ -10,6 +10,9 @@ module.exports = {
         
         const {member, mentions} = message;
 
+        if(typeof mentions == 'undefined') mentions = message.guild.members.cache.get(args[0]);
+        if(typeof mentions == 'undefined') return message.reply('The id you passed is not valid!');
+
         const tag = `<@${member.id}>`;
 
         if(typeof args[1] == 'undefined') return message.reply('You must input a reason!');

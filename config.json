@@ -5,5 +5,10 @@
     "Mute": "",
     "Main": ""
   },
-  "currentTickets":0
+  "currentTickets":0,
+  "youtubeAPIKey": "",
+  "leaveMessageChannel": "",
+  "addMessageChannel": "",
+  "channelId": "",
+  "supportTeam":"808495468513722369"
 }

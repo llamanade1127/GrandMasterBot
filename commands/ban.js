@@ -11,7 +11,8 @@ module.exports = {
         
         const {member, mentions} = message;
 
-        if(typeof mentions == 'undefined') return message.reply("must have a person mentioned");
+        if(typeof mentions == 'undefined') mentions = message.guild.members.cache.get(args[0]);
+        if(typeof mentions == 'undefined') return message.reply('The id you passed is not valid!');
 
         var BanEmbed = new Discord.MessageEmbed();
         const tag = `<@${member.id}>`;

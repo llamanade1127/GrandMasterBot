@@ -1,4 +1,4 @@
-const { execute } = require("./clear");
+
 const Discord = require('discord.js');
 module.exports = {
     name: "help",

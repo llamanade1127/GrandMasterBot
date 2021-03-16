@@ -52,7 +52,7 @@ module.exports = ( Discord, client, message) => {
     //console.log(prefix)
     const args = message.content.slice(prefix.length).split(/ +/);
     const cmd = args.shift().toLowerCase();
-
+    const noCommand = message.content.slice(prefix.length);
     const command = client.commands.get(cmd);
     var cmdArgs =  {
         client: client,
@@ -61,7 +61,9 @@ module.exports = ( Discord, client, message) => {
         args: args,
         prefix: prefix,
         text: message.content,
-        command:cmd
+        command:cmd,
+        author: message.author,
+        woCom: noCommand
     }
     if(!command) return message.reply('That command dosnt exist! Please use !help to see a list of commands');
     //comand elemenets:

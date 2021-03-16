@@ -10,6 +10,9 @@ module.exports = {
     async execute({message,args,text}){
         
         const {member, mentions} = message;
+        
+        if(typeof mentions == 'undefined') mentions = message.guild.members.cache.get(args[0]);
+        if(typeof mentions == 'undefined') return message.reply('The id you passed is not valid!');
 
         const tag = `<@${member.id}>`;
 
